@@ -18,7 +18,7 @@ class BasePacketGenerator:
         self.simulator = None
 
     def run(self):
-        """Simulator generator stub function."""
+        """Mimic base generator functionality."""
 
     def get_packet_count(self):
         """Return the number of injected packets (up until the function call).
