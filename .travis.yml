@@ -1,0 +1,30 @@
+language: python
+python:
+  - "3.7"
+# command to install dependencies
+install:
+  - pip3 install -r requirements.txt
+  - pip3 install -e .
+# command to run tests
+script:
+  # The unit tests should succeed when tested in python3
+  - python3 -m pytest tests/unittests/ -vv --color=yes
+  # Checks for proper documentation
+  - python3 -m pydocstyle examples pydtnsim
+  # The linter pylint somehow overlaps with flake8, but has some more checks that flake8 does not have
+  - python3 -m pylint pydtnsim --ignore=routing
+  # We need this additional linter because we have to ignore certain issues within the routing submodule (i.e. we want to allow redundant code to get a better representation of the semantic structures of the routing approaches)
+  - python3 -m pylint pydtnsim.routing -d duplicate-code -d R0912 -d R0913
+  # We separate the complexity plugin functionality to get additional feedback regarding the complexity
+  - pylint --disable=all --load-plugins=pylint.extensions.mccabe --enable=R1260 pydtnsim --ignore=routing
+  # Check that all CGR routing implementations provide the same results
+  - export PYTHONHASHSEED=1; python3 tests/routingtests/equivalence_check.py -q
+  # Check that all CGR routing implementations provide deterministic results
+  # when executed in a deterministic environment
+  - python3 tests/routingtests/determinism_check.py -q
+  # Check compatibility with "old" tvg_tools
+  - python3 tests/integrationtests/tvg_tools_old_test.py
+  # Check compatibility with tvg_util tools
+  - python3 tests/integrationtests/tvg_tools_new_test.py
+  # Run all examples in the examples/ folder
+  - python3 tests/run_examples.py
