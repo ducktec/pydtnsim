@@ -1,0 +1,1 @@
+{"vertices": ["node1", "node2", "node3"], "edges": [{"contacts": [[0.0, 10.0, 1.0], [20.0, 30.0, 1.0]], "vertices": ["node1", "node2"]}, {"contacts": [[30.0, 40.0, 1.0]], "vertices": ["node2", "node3"]}]}
