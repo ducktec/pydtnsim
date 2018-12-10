@@ -1,5 +1,7 @@
 # PyDTNsim
 
+[![Build Status](https://travis-ci.org/ducktec/pydtnsim.svg?branch=master)](https://travis-ci.org/ducktec/pydtnsim)
+
 ## Introduction
 
 This python module contains a simulation environment that allows the simulation of arbitrary Delay Tolerant Networking (DTN) scenarios on a packet (DTN terminology: bundle) level. *PyDTNsim* provides users with the ability to evaluate the performance of various routing approaches and to detect possibly occurring overload situations. Currently, the focus lies on deterministic Contact-Graph-based routing approaches, but there might be other
