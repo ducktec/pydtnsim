@@ -25,13 +25,14 @@ If something is supposed to be indeterministic or random, please implement it in
 Please document your functions and objects! This project uses [Google style docstrings](http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html).
 
 ## Pylint
-In order to keep the code quality level at tha highest possible level, the linting tool `pylint` should be used to validate the code. [Pylint](https://www.pylint.org/) not only checks for programming errors and ambiguities, but also for documentation errors (docstrings, inconsistencies of parameter description) and code complexity.
+In order to keep the code quality level at a high level, the linting tool `pylint` should be used to validate the code. [`pylint`](https://www.pylint.org/) not only checks for programming errors and ambiguities, but also for documentation errors (docstrings, inconsistencies of parameter description) and code complexity.
 
 ## Pydocstring
 While overlapping in some parts with `pylint`, [`pydocstyle`](http://www.pydocstyle.org/en/2.1.1/) should be used to evaluate the written *docstrings*. In particular, the imperative mood of the summaries and correct formating is enforced when using this tool.
 
 ## Continuous ~~Integration~~ (Testing)
-As so often in the Gitlab context[^1], the erroneously called **Continuous Integration** functionality is actually used for **Continuous Testing/Building** in the scope of this project.
+Travis CI is used to run various testing measures to ensure the soundness of.
+the library.
 
 The CI instance performs the following tests:
 - Run `pylint` and `pydocstyle` and check for issues
@@ -43,5 +44,3 @@ The CI instance performs the following tests:
 - Check if both the legacy JSON format (DTN-TVG-Tools) and the new format (DTN-TVG-Util) are processed without error.
 
 There might be even more checks in the future. Particularly, the comparison of routing decisions to an external routing instance (*ION* or *TVG-Util*) would be very helpful.
-
-[^1]: https://martinfowler.com/bliki/FeatureBranch.html
