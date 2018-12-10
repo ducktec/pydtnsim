@@ -1,0 +1,7 @@
+networkx
+tqdm
+jsonschema
+pytest
+pylint
+pydocstyle
+termcolor

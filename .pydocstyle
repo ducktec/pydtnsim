@@ -1,0 +1,12 @@
+[pydocstyle]
+
+# Choose the basic list of checked errors by specifying an existing convention.
+# Possible conventions: pep257, numpy.
+convention=pep257
+
+# Add extra error codes to check to the basic list of errors previously set by
+# --select, --ignore or --convention.
+#
+#     D107: Missing docstring in __init__
+#
+add_ignore=D107
