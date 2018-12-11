@@ -20,15 +20,18 @@ setup(
     url="https://github.com/ducktec/pydtnsim",
     python_requires='>=3.7.0',
     packages=setuptools.find_packages(),
-    install_requires=['networkx', 'tqdm', 'jsonschema'],
+    install_requires=[
+        'networkx>=2.0, <3.0',
+        'tqdm>=4.0, <5.0',
+        'jsonschema>=2.0, <3.0'],
     extras_require={
         'dev': [
-            'pytest',
-            'Sphinx',
-            'sphinx_rtd_theme',
-            'pylint',
-            'pydocstyle',
-            'termcolor'
+            'pytest>=3.0, <4.0',
+            'Sphinx>=1.0, <2.0',
+            'sphinx_rtd_theme==0.4.2',
+            'pylint>=2.0, <3.0',
+            'pydocstyle>2.0, <3.0',
+            'termcolor>=1.0, <2.0'
         ]
     },
     classifiers=[
