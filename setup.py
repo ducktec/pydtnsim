@@ -3,24 +3,18 @@ import os
 import setuptools
 from setuptools import setup
 
-
-def read(fname):
-    """Read the ``README.md`` file.
-
-    Used for the long_description. It's nice, because now
-
-    1. we have a top level README file and
-    2. it's easier to type in the README file than to put a raw string in below
-    """
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
+# Read the README as long description (used with pypi)
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 setup(
     name="pydtnsim",
-    version="0.0.11",
+    version="0.0.10",
     author="Robert Wiewel",
     author_email="dev@ducktec.de",
-    description="Discrete event simulation library for DTN",
+    description="A discrete event simulation library for DTN",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     license='MIT',
     keywords="dtn, cgr",
     url="https://github.com/ducktec/pydtnsim",
@@ -37,7 +31,6 @@ setup(
             'termcolor'
         ]
     },
-    long_description=read('README.md'),
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
