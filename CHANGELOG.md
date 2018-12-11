@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 -
 
+## [0.1.0] - 2018-12-11
+### Added 
+- Added requirements.txt to allow for an easy dependency installation.
+
+### Changed
+- First public release version. Renamed project from `simpy-dtn` to `pydtnsim`.
+- Adapted changelog and readme
+- Switched to Travis CI .yml file (and removed gitlab CI file). The checks 
+  performed during the CI runs are the same.
+- Updated `setup.py` to load long description from `README.md` with common 
+  function call
+
+## Fixed
+- Corrected and cleaned up dependencies, deleted requirements.txt, added
+  version value ranges for dependencies
+
 ## [0.0.10] - 2018-12-07
 ### Added
 - The `ContactPlan` object now allows for the loading of topology information 
@@ -24,7 +40,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   detailed parameters about routing decisions are provided to the registered 
   monitors.
 - The internal forwarding handling of the `Packet` object, the implemented 
-  routing mechanisms and the unit tests were modified to accommodate the changes to the monitoring interface as well.
+  routing mechanisms and the unit tests were modified to accommodate the 
+  changes to the monitoring interface as well.
 
 ### Fixed
 - Removed cyclic imports in `monitors` and `packet_generators` submodules.
