@@ -9,7 +9,7 @@ with open("README_PYPI.md", "r") as fh:
 
 setup(
     name="pydtnsim",
-    version="0.0.10",
+    version="0.1.0",
     author="Robert Wiewel",
     author_email="dev@ducktec.de",
     description="A discrete event simulation library for DTN",
