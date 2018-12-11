@@ -4,7 +4,7 @@ import setuptools
 from setuptools import setup
 
 # Read the README as long description (used with pypi)
-with open("README.md", "r") as fh:
+with open("README_PYPI.md", "r") as fh:
     long_description = fh.read()
 
 setup(
@@ -16,7 +16,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license='MIT',
-    keywords="dtn, cgr",
+    keywords="delay-tolerant-networking, routing, simulation, dtn, cgr",
     url="https://github.com/ducktec/pydtnsim",
     python_requires='>=3.7.0',
     packages=setuptools.find_packages(),
