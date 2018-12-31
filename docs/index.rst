@@ -13,15 +13,22 @@ Contents
 
 .. toctree::
    :maxdepth: 2
+   :caption: User Guide
 
    install
    getting_started
    examples
    scenario_setup
+   routing/index
    monitoring
    data_processing
-   architecture
-   development_guide
+   
+.. toctree::
+  :maxdepth: 2
+  :caption: Development Guide
+
+  architecture
+  development_guide
 
 Indices and tables
 ==================
