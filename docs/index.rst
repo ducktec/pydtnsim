@@ -22,6 +22,7 @@ Contents
    routing/index
    monitoring
    data_processing
+   API pyDTNsim <source/pydtnsim>
    
 .. toctree::
   :maxdepth: 2
