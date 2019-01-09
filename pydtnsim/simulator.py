@@ -126,6 +126,7 @@ class Simulator():
 
         # Signal to monitors that simulation ended
         self.notifier.simulation_ended()
+        print("Simulation completed!")
         self.__print_stats()
 
     def register_node(self, node):
@@ -215,12 +216,15 @@ class Simulator():
             local_rem_cap = self.contact_dict[contact].capacity
             remaining_capacity += local_rem_cap
             self.final_capacity_dict[contact] = local_rem_cap
-
-        capacity_utilization = round(
-            (((self.overall_capacity - remaining_capacity) /
-              self.overall_capacity) * 100), 2)
-        print("- contact capacity utilization: {} %".format(
-            capacity_utilization))
+            
+        # Only calculate the utilization if any capacity was available
+        # otherwise leads to division by zero error
+        if self.overall_capacity > 0:
+            capacity_utilization = round(
+                (((self.overall_capacity - remaining_capacity) /
+                  self.overall_capacity) * 100), 2)
+            print("- contact capacity utilization: {} %".format(
+                capacity_utilization))
 
     def get_utilization_list(self,
                              ignore_inter_hotspot_contact=False,
