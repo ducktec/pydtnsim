@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'pyDTNsim'
-copyright = '2018, Robert Wiewel'
+copyright = '2019, Robert Wiewel'
 author = 'Robert Wiewel'
 
 # The short X.Y version
@@ -43,8 +43,8 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
-    'sphinxcontrib.bibtex',
     'sphinx.ext.napoleon',
+#    'sphinxcontrib.bibtex',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
