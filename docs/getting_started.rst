@@ -103,6 +103,7 @@ For the simulation elements including their helper classes, we need to add the f
     from pydtnsim import ContactPlan, ContactGraph, Contact
     from pydtnsim.nodes import SimpleCGRNode
     from pydtnsim.routing import cgr_basic
+    from pydtnsim.packet_generators import ContinuousPacketGenerator
     
 The imported objects will be explained in the following paragraphs.
   
@@ -220,7 +221,7 @@ Finally, we have to add packet generators that are injecting packets into the si
 
 Currently, there two different packet generators provided in the simulation environment, the :class:`.BatchPacketGenerator` and the :class:`.ContinuousPacketGenerator`. Both are children of the parent :class:`.BasePacketGenerator`.
 
-The injection behavior of the two generators is depicted in the following figures:
+The injection behavior of the two generators is depicted in the following figure:
 
 .. image:: resources/getting_started/injection_methods.svg
    :width: 80%
@@ -229,6 +230,94 @@ The injection behavior of the two generators is depicted in the following figure
 The :class:`.BatchPacketGenerator` injects a specified number of packets at specified points in time whereas the :class:`.ContinuousPacketGenerator` injects packets continuously throughout the simulation period with a defined generation data rate.
 
 Depending on the scenario, one of them might be used for the simulation conducted. Alternatively, an own generator can be implemented based on the :class:`.BasePacketGenerator`.
+
+For our scenario, we will use the :class:`.ContinuousPacketGenerator` to inject packets for the routes ``node_a -> node_c`` and ``node_c -> node_a`` at a specified data generation rate of 10 KBps and with a packet size of 100 KB:
+
+.. code-block:: python
+    :linenos:
+
+    # Generate packet generator 1 and register them
+    generator1 = ContinuousPacketGenerator(
+        10,          # Data Generation Rate: 10 Bytes per ms
+        100000,      # Packet Size: 100 KB
+        ['node_a'],  # From 'node_a'
+        ['node_c'],  # To 'node_c'
+        0,           # Start injection at simulation time 0s
+        1000000)     # End injection at simulation end (1000s)
+        
+    # Generate packet generator 2 and register them
+    generator2 = ContinuousPacketGenerator(
+        10,          # Data Generation Rate: 10 Bytes per ms
+        100000,      # Packet Size: 100 KB
+        ['node_c'],  # From 'node_c'
+        ['node_a'],  # To 'node_a'
+        0,           # Start injection at simulation time 0s
+        1000000)     # End injection at simulation end (1000s)
+
+    # Register the generators as a generator objects in the simulation
+    # environment
+    simulator.register_generator(generator1)
+    simulator.register_generator(generator2)
+    
+.. warning::
+
+  The implementation of the packet generator configuration is currently requiring the instantiation of two distinct generators to accomplish the bidirectional injection of packets between ``node_a <-> node_c``. This will be changed in a future release (likely ``v0.3.0``).
+    
+.. warning::
+  Also, the registration procedure for the generators is currently inconsistent with the other simulation elements. Therefore, a consistent registration procedure will be established in a future release as well.
+  
+Two generators have to be instantiated, one for the injection of packets traveling from `node_a` to `node_c` and one for the reverse direction from `node_c` to `node_a`.
+
+The two instantiations in lines 2 to 8 and 11 to 17 are provided with several parameters:
+
+- the data generation rate,
+- the packet size,
+- a ``list`` of (``string``) node identifiers identifying all source nodes that the generator should inject packets with the given parameters and data rate,
+- a ``list`` of (``string``) node identifiers identifying all destination nodes that the generator should address packets to with the given parameters and data rate,
+- the injection start time (in ms absolute to the simulation start time) and
+- the injection end time (in ms absolute to the simulation start time).
+
+With ``list``'s used for identifying source and destination nodes, the the generator injects for every element of the source node list packets with the given characteristics and rates to all elements of the destination node list. This injection scheme is also depicted in the following diagram:
+
+.. image:: resources/getting_started/packet_injection_scheme.svg
+   :width: 100%
+   :align: center
+   
+With the two generators instantiated an configured, we have to register them with the simulation environment. This is done in lines 21 and 22.
+
+We now have all simulation elements in place and can run the simulation again. If you don't want to copy all code snippets from this documentation, you can also download the file created up to this point of the tutorial at :download:`this link <resources/getting_started/dtn_simulation_elements.py>`.
+
+If we run this extended script, we get the following output:
+
+.. code-block:: none
+  :linenos:
+
+  > python3 dtn_simulation_elements.py 
+    Running simulation  for 1000000 ms ...
+    Simulation completed!
+    Simulation Results:
+    - total number of packets generated: 198
+    - total number of packets enqueued in limbos: 165
+    - total number of packets enqueued in contacts: 0
+    
+You can see that the generators properly generated packets and injected them into the network. The number of generated packets seems about right: with the configuration provided, the generators inject a packet to the (single) destination every 10 seconds. With 1000 seconds being simulated, this results in 99 injected packets per generator and 198 in total. As the simulation ends when 1000s is reached (excluding the termination value), the 100th packet of each generator that would be due at time 1000s is not added.
+
+Also, we can see in line 6, that only a fraction of the injected packets is actually forwarded and 165 of the 198 packets are enqueued in one of the nodes' limbos. A limbo is a queue that holds packets that cannot be forwarded to their destination nodes based on the available topology information. Every node has a limbo that is used for such packets.
+
+.. note::
+
+	The number of "discarded" packets can be directly attributed to the selected topology, the contact times and the nodes configuration (including the injection rates) and does not represent an (programming) error.
+
+As our contact plan has the same validity period as our simulation duration, no packets should remain scheduled in contacts after the simulation end. This is the case as can be seen in line 7.
+
+.. warning::
+
+	If the validity period of topology information exceeds the simulated period (e.g., a 1 hour simulation is conducted with a contact plan containing the computed contacts for 48 hours), packets can remain enqueued in *future* (i.e., beyond the simulation end time) contacts and will appear in the simulation results summary (in our example in line 7).
+  
+In this section, we successfully simulated our specified simulation scenario. We even got some bits of information about what happened during the simulation (e.g., that a large number of packets was at some point enqueued into a node's limbo).
+
+However, usually when running a network simulation (especially in the academic context), more detailed analyses and key values are required. The next section will cope with the monitoring interface of pyDTNsim that allows for an extraction of arbitrary such values.
+
 
 Monitoring of the Simulation
 ----------------------------
