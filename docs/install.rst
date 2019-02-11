@@ -133,3 +133,11 @@ Check if the module was installed correctly by invoking a Python shell and impor
   > import pydtnsim
   
 If no error occurs, the installation was successful. Continue ith the section :ref:`getting_started`.
+
+.. tip::
+
+	 A recommendation in general, but a must in the context of upstream development is the use of the environment wrappers `pyenv <https://github.com/pyenv/pyenv>`_ (for the version of the Python interpreter) and `pipenv <https://github.com/pypa/pipenv>`_ (for the Pip package environment). The configuration files for *pipenv* are provided (``Pipfile`` and ``Pipfile.lock``) and contain also the requirements for *pyenv*.
+
+	 In combination, the wrappers ensure a sound and deterministic development environment for all developers by installing clearly specified versions and encapsulating them from the other python (package) installations on the systems. An article outlining the benefits of the wrappers can be found at [#]_.
+
+.. [#] https://hackernoon.com/reaching-python-development-nirvana-bb5692adf30c?gi=26b62f02bc0b
