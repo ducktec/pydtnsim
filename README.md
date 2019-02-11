@@ -14,8 +14,7 @@ approaches available in the future. The clear modularization allows users to eas
 
 ## Quickstart
 
-The module makes use of features introduced in Python 3.7. Please install a 
-compatible version.
+The module makes use of features introduced in Python 3.7. Please install a compatible version.
 
 ```bash
 # Install the Python package as editable and with development dependencies
@@ -23,6 +22,16 @@ $ pip install -e ".[dev]"
 
 # Run the minimal example in the examples/ folder
 $ python examples/minimal_example.py
+```
+
+For the development of *PyDTNsim*, it is strongly recommended to use `pipenv` to handle and keep track of dependencies. The required files for that (`Pipfile` and `Pipfile.lock`) are provided in the root directory of the repository. The use of `pipenv` ensures a **stable** and **deterministic** python environment for all developers.
+
+```bash
+# Install pipenv using pip3 of the development system
+$ pip3 install pipenv
+
+# Install the dependencies according to Pipfile and Pipfile.lock
+$ pipenv install --dev
 ```
 
 ## Structure
