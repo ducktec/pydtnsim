@@ -438,7 +438,7 @@ class ContactPlan:
                     from_time=from_time,
                     to_time=to_time,
                     datarate=datarate,
-                    delay=contact[5])
+                    delay=contact[6])
 
                 # Add two contacts (due to bidirectionality)
                 self.plan['contacts'].append(contact)
