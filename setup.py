@@ -29,7 +29,7 @@ setup(
             'pytest>=3.0, <4.0',
             'Sphinx>=1.0, <2.0',
             'sphinx_rtd_theme==0.4.2',
-            'pylint==2.2.2',
+            'pylint>=2.0, <3.0',
             'pydocstyle>2.0, <3.0',
             'termcolor>=1.0, <2.0'
         ]
