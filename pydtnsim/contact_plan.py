@@ -189,7 +189,8 @@ class ContactPlan:
         # Load plan from file if json_source_file is specified
         if json_source_file is not None and json_str is not None:
             raise ValueError("Ambiguous topology configuration provided!")
-        elif json_source_file is not None:
+
+        if json_source_file is not None:
             data = self._load_json_from_file(json_source_file)
             self.load_dtn_tvg_plan(data, simulation_end_time, default_datarate,
                                    default_delay)
@@ -290,7 +291,8 @@ class ContactPlan:
         if not validation_new and not validation_legacy:
             raise ValidationError("The provided JSON file did not adhere to " +
                                   "any of the supported JSON schemes!")
-        elif validation_new:
+
+        if validation_new:
             self.__add_dtn_tvg_data(data, simulation_end_time)
         else:
             self.__add_legacy_dtn_tvg_data(data, simulation_end_time, datarate,
@@ -348,11 +350,12 @@ class ContactPlan:
                 # ignore all contacts that start after that end time
                 if from_time >= simulation_end_time:
                     continue
+
                 # If a contact starts before the end time but ends after the
                 # end time, set the end time to the end of the simulation
                 # to prevent packets from being scheduled for the time after
                 # the simulation has ended.
-                elif to_time > simulation_end_time:
+                if to_time > simulation_end_time:
                     to_time = simulation_end_time
 
                 contact1 = ContactIdentifier(
@@ -418,11 +421,12 @@ class ContactPlan:
                 # ignore all contacts that start after that end time
                 if from_time >= simulation_end_time:
                     continue
+
                 # If a contact starts before the end time but ends after the
                 # end time, set the end time to the end of the simulation
                 # to prevent packets from being scheduled for the time after
                 # the simulation has ended.
-                elif to_time > simulation_end_time:
+                if to_time > simulation_end_time:
                     to_time = simulation_end_time
 
                 # Transform the PCP into a FCP by converting the capacity

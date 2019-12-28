@@ -180,7 +180,8 @@ class ContactGraph:
         if not isinstance(contact, ContactIdentifier):
             raise ValueError("ContactIdentifier named tuple should be used \
                              for accessing ContactGraph object")
-        elif contact not in self.graph:
+
+        if contact not in self.graph:
             raise ValueError("Contact specified by identifier not part of \
                              graph")
 
