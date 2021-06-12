@@ -31,7 +31,7 @@ In order to keep the code quality level at a high level, the linting tool `pylin
 While overlapping in some parts with `pylint`, [`pydocstyle`](http://www.pydocstyle.org/en/2.1.1/) should be used to evaluate the written *docstrings*. In particular, the imperative mood of the summaries and correct formating is enforced when using this tool.
 
 ## Continuous ~~Integration~~ (Testing)
-Travis CI is used to run various testing measures to ensure the soundness of.
+Github Actions is used to run various testing measures to ensure the soundness of.
 the library.
 
 The CI instance performs the following tests:
