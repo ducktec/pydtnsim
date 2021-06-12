@@ -35,7 +35,7 @@ class ContinuousPacketGenerator(BasePacketGenerator):
     def __init__(self, generation_rate, packet_size, source_node_list,
                  target_node_list, start_time, end_time):
         # Call parent class init method
-        super(ContinuousPacketGenerator, self).__init__()
+        super().__init__()
         self.generation_rate = generation_rate
         self.packet_size = packet_size
         self.source_node_list = source_node_list

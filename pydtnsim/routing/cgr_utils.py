@@ -60,8 +60,7 @@ def cgr_neighbor_function(contact_graph, node, destination, current_distance,
                 # Calculate the time (which is either positive or 0, relevant
                 # for artificial terminal nodes)
                 weight = edge.from_time - current_distance
-                if weight < 0:
-                    weight = 0
+                weight = max(weight, 0)
 
                 # Append to neighbor list with weight
                 neighbors.append((edge, weight))

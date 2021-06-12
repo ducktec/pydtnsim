@@ -33,7 +33,7 @@ class BatchPacketGenerator(BasePacketGenerator):
     def __init__(self, packet_number, packet_size, source_node_list,
                  target_node_list, time):
         # Call parent class init method
-        super(BatchPacketGenerator, self).__init__()
+        super().__init__()
         self.packet_number = packet_number
         self.packet_size = packet_size
         self.source_node_list = source_node_list
