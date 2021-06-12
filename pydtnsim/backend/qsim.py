@@ -62,10 +62,10 @@ class QSim():
         try:
             heapq.heappush(self.event_queue,
                            (time, runner_id, eid, function_call, arg))
-        except TypeError:
+        except TypeError as typeerr:
             raise SystemError("Time and runner_id were matching! " +
                               "Aborting! Only one entry per time and " +
-                              "runner_id allowed.")
+                              "runner_id allowed.") from typeerr
 
     def run_simulation(self, until=math.inf):
         """Run the simulation (until a certain point in time).

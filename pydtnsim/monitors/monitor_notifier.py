@@ -13,7 +13,7 @@ class MonitorNotifier(BaseMonitor):
 
     def __init__(self, env):
         # Call parent class init method
-        super(MonitorNotifier, self).__init__(env)
+        super().__init__(env)
         self.subscribers = []
 
     def add_subscriber(self, subscriber):

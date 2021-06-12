@@ -355,8 +355,7 @@ class ContactPlan:
                 # end time, set the end time to the end of the simulation
                 # to prevent packets from being scheduled for the time after
                 # the simulation has ended.
-                if to_time > simulation_end_time:
-                    to_time = simulation_end_time
+                to_time = min(to_time, simulation_end_time)
 
                 contact1 = ContactIdentifier(
                     from_node=edge['vertices'][0],
@@ -426,8 +425,7 @@ class ContactPlan:
                 # end time, set the end time to the end of the simulation
                 # to prevent packets from being scheduled for the time after
                 # the simulation has ended.
-                if to_time > simulation_end_time:
-                    to_time = simulation_end_time
+                to_time = min(to_time, simulation_end_time)
 
                 # Transform the PCP into a FCP by converting the capacity
                 # predictions into a constant datarate (assuming that the
