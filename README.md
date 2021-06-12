@@ -1,6 +1,6 @@
 # PyDTNsim
 
-[![Build Status](https://travis-ci.org/ducktec/pydtnsim.svg?branch=master)](https://travis-ci.org/ducktec/pydtnsim)
+[![Build Status](https://github.com/ducktec/pydtnsim/actions/workflows/main.yml/badge.svg)](https://github.com/ducktec/pydtnsim/actions/workflows/main.yml)
 [![PyPI version shields.io](https://img.shields.io/pypi/v/pydtnsim.svg)](https://pypi.python.org/pypi/pydtnsim/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/pydtnsim.svg)](https://pypi.python.org/pypi/pydtnsim/)
 [![PyPI status](https://img.shields.io/pypi/status/pydtnsim.svg)](https://pypi.python.org/pypi/pydtnsim/)

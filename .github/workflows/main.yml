@@ -1,0 +1,84 @@
+# This is a basic workflow to run relevant CI/Testing steps for the project.
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "test"
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Setup a representative python environment
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.2
+        with:
+          # Version range or exact version of a Python version to use, using SemVer's version range syntax.
+          python-version: 3.7.10 # optional, default is 3.x
+          # The target architecture (x86, x64) of the Python interpreter.
+          #architecture: # optional
+          # Used to pull python distributions from actions/python-versions. Since there's a default, this is typically not supplied by the user.
+          #token: # optional, default is ${{ github.token }}
+
+      # Install the necessary dependencies and navigate to the checked out repository
+      - name: Setup Environment
+        run: |
+          pip install pipenv --upgrade
+          pipenv install --dev
+          cd $GITHUB_WORKSPACE
+
+      # The unit tests should succeed when tested in python3
+      - name: Py.Test
+        run: pipenv run python3 -m pytest tests/unittests/ -vv --color=yes
+  
+      # Documentation style checks
+      - name: Pydocstyle
+        run: pipenv run python3 -m pydocstyle examples pydtnsim
+
+      # The linter pylint somewhat overlaps with flake8, but has some more checks that flake8 does not have
+      - name: Pylint
+        run: pipenv run python3 -m pylint pydtnsim --ignore=routing
+
+      # We need this additional linter because we have to ignore certain issues within the routing submodule (i.e. we want to allow redundant code to get a better representation of the semantic structures of the routing approaches)
+      - name: Pylint Routing
+        run: pipenv run python3 -m pylint pydtnsim.routing -d duplicate-code -d R0912 -d R0913
+
+      # We need this additional linter because we have to ignore certain issues within the routing submodule (i.e. we want to allow redundant code to get a better representation of the semantic structures of the routing approaches)
+      - name: Pylint Complexity
+        run: pipenv run pylint --disable=all --load-plugins=pylint.extensions.mccabe --enable=R1260 pydtnsim --ignore=routing
+
+      # Check that all CGR routing implementations provide the same results
+      - name: Routing CGR Equivalence Check
+        run: export PYTHONHASHSEED=1; pipenv run python3 tests/routingtests/equivalence_check.py -q
+  
+      # Check that all CGR routing implementations provide deterministic results when executed in a deterministic environment
+      - name: Routing Determinism Check
+        run: pipenv run python3 tests/routingtests/determinism_check.py -q
+  
+      # Run all examples in the examples/ folder
+      - name: Examples Test Run
+        run: pipenv run python3 tests/run_examples.py
+  
+      # Check compatibility with "old" tvg_tools
+      - name: TVG Tool (Old)
+        run: pipenv run python3 tests/integrationtests/tvg_tools_old_test.py
+  
+      # Check compatibility with tvg_util tools
+      - name: TVG Tool (New)
+        run: pipenv run python3 tests/integrationtests/tvg_tools_new_test.py 
